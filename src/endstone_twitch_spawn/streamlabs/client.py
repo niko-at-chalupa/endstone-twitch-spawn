@@ -41,7 +41,6 @@ class StreamlabsClient:
         if not event_type:
             self._logger.warning("Unknown event (doesn't declare type)")
             return
-        self._logger.info(f"Got an event!! {event_type}")
         try:
             from .events import parse_streamlabs_event
             event = parse_streamlabs_event(data)
