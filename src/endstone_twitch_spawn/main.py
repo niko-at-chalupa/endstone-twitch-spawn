@@ -1,7 +1,14 @@
 from endstone.plugin import Plugin
+from .streamlabs import StreamlabsClient, StreamlabsEventHandler
+import os
 
 class TwitchSpawnPlugin(Plugin):
     api_version = "0.11"
 
     def on_enable(self):
-        pass
+        self._streamlabs_event_handler = StreamlabsEventHandler(self.logger)
+        # TODO: configs; we're not using that stupid config system we use EVERY other time anymore
+        self._client = StreamlabsClient(self.logger, os.environ["STREAMLABS_SOCKET_TOKEN"], self._streamlabs_event_handler)
+
+    def on_disable(self):
+        self._client.stop()
