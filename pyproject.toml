@@ -12,6 +12,7 @@ authors = [
 dependencies = [
     "endstone",
     "python-socketio",
+    "pydantic",
 ]
 
 [project.entry-points."endstone"]

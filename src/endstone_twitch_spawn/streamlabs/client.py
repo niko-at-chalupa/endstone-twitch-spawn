@@ -37,8 +37,14 @@ class StreamlabsClient:
         self._logger.info("Disconnected from Streamlabs socket")
 
     def _on_streamlabs_event(self, data: dict):
-        event = data.get("type")
-        if not event:
+        event_type = data.get("type")
+        if not event_type:
             self._logger.warning("Unknown event (doesn't declare type)")
-        self._logger.info(f"Got an event!! {event}, {data}")
-        #self._streamlabs_event_handler.call_event()
+            return
+        self._logger.info(f"Got an event!! {event_type}")
+        try:
+            from .events import parse_streamlabs_event
+            event = parse_streamlabs_event(data)
+            self._streamlabs_event_handler.call_event(event)
+        except Exception as e:
+            self._logger.error(f"Failed to parse or dispatch Streamlabs event: {e}")
