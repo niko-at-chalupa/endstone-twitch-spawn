@@ -41,4 +41,4 @@ class StreamlabsClient:
         if not event:
             self._logger.warning("Unknown event (doesn't declare type)")
         self._logger.info(f"Got an event!! {event}, {data}")
-        self._streamlabs_event_handler.call_event(StreamlabsEvent())
+        #self._streamlabs_event_handler.call_event()

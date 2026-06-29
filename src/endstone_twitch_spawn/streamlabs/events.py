@@ -2,10 +2,11 @@ from endstone import Logger
 from endstone.event import EventPriority
 from typing import Type, Callable, Any, get_type_hints
 import inspect
+from abc import ABC
 
 # https://github.com/niko-at-chalupa/endstone-clans-api/blob/17af142a5c780fe418cec91431924fb873ac7525/src/endstone_clans_api/events.py
 
-class StreamlabsEvent:
+class StreamlabsEvent(ABC):
     @property
     def event_name(self) -> str:
         return self.__class__.__name__

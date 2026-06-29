@@ -14,4 +14,7 @@ class TwitchSpawnPlugin(Plugin):
         self._client.start()
 
     def on_disable(self):
-        self._client.stop()
+        try:
+            self._client.stop()
+        except AttributeError:
+            pass
