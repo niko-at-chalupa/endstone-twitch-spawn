@@ -1,8 +1,10 @@
 from typing import Any, Optional, Union, List, Dict
 from pydantic import BaseModel, Field
 
+
 class StreamlabsRecipient(BaseModel):
     name: str
+
 
 class LoyaltyStoreRedemptionMessage(BaseModel):
     id: str = Field(alias="_id")
@@ -21,6 +23,7 @@ class LoyaltyStoreRedemptionMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class MerchMessage(BaseModel):
     id: str = Field(alias="_id")
     name: str
@@ -38,6 +41,7 @@ class MerchMessage(BaseModel):
 
     class Config:
         populate_by_name = True
+
 
 class DonationMessage(BaseModel):
     id: str = Field(alias="_id")
@@ -59,6 +63,7 @@ class DonationMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class StreamLabelsData(BaseModel):
     id: str = Field(alias="_id")
     priority: int = 10
@@ -69,7 +74,9 @@ class StreamLabelsData(BaseModel):
     total_donation_amount: Optional[str] = ""
     monthly_donation_amount: Optional[str] = ""
     weekly_donation_amount: Optional[str] = ""
-    thirtyday_donation_amount: Optional[str] = Field(default="", alias="30day_donation_amount")
+    thirtyday_donation_amount: Optional[str] = Field(
+        default="", alias="30day_donation_amount"
+    )
     session_donation_amount: Optional[str] = ""
     all_time_top_donator: Optional[str] = ""
     monthly_top_donator: Optional[str] = ""
@@ -79,27 +86,37 @@ class StreamLabelsData(BaseModel):
     all_time_top_donators: Optional[str] = ""
     monthly_top_donators: Optional[str] = ""
     weekly_top_donators: Optional[str] = ""
-    thirtyday_top_donators: Optional[str] = Field(default="", alias="30day_top_donators")
+    thirtyday_top_donators: Optional[str] = Field(
+        default="", alias="30day_top_donators"
+    )
     session_top_donators: Optional[str] = ""
     all_time_top_donations: Optional[str] = ""
     monthly_top_donations: Optional[str] = ""
     weekly_top_donations: Optional[str] = ""
-    thirtyday_top_donations: Optional[str] = Field(default="", alias="30day_top_donations")
+    thirtyday_top_donations: Optional[str] = Field(
+        default="", alias="30day_top_donations"
+    )
     session_top_donations: Optional[str] = ""
     all_time_top_monthly_donator: Optional[str] = ""
     monthly_top_monthly_donator: Optional[str] = ""
     weekly_top_monthly_donator: Optional[str] = ""
-    thirtyday_top_monthly_donator: Optional[str] = Field(default="", alias="30day_top_monthly_donator")
+    thirtyday_top_monthly_donator: Optional[str] = Field(
+        default="", alias="30day_top_monthly_donator"
+    )
     session_top_monthly_donator: Optional[str] = ""
     all_time_top_monthly_donators: Optional[str] = ""
     monthly_top_monthly_donators: Optional[str] = ""
     weekly_top_monthly_donators: Optional[str] = ""
-    thirtyday_top_monthly_donators: Optional[str] = Field(default="", alias="30day_top_monthly_donators")
+    thirtyday_top_monthly_donators: Optional[str] = Field(
+        default="", alias="30day_top_monthly_donators"
+    )
     session_top_monthly_donators: Optional[str] = ""
     total_monthly_donator_count: Optional[str] = ""
     monthly_monthly_donator_count: Optional[str] = ""
     weekly_monthly_donator_count: Optional[str] = ""
-    thirtyday_monthly_donator_count: Optional[str] = Field(default="", alias="30day_monthly_donator_count")
+    thirtyday_monthly_donator_count: Optional[str] = Field(
+        default="", alias="30day_monthly_donator_count"
+    )
     session_monthly_donator_count: Optional[str] = ""
     most_recent_monthly_donator: Optional[str] = ""
     session_monthly_donators: Optional[str] = ""
@@ -108,6 +125,7 @@ class StreamLabelsData(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class StreamLabelsMessage(BaseModel):
     hash: Optional[str] = None
     data: StreamLabelsData
@@ -115,11 +133,14 @@ class StreamLabelsMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class StreamLabelsAmount(BaseModel):
     amount: str
 
+
 class StreamLabelsCount(BaseModel):
     count: str
+
 
 class StreamLabelsUnderlyingData(BaseModel):
     id: str = Field(alias="_id")
@@ -131,7 +152,9 @@ class StreamLabelsUnderlyingData(BaseModel):
     total_donation_amount: Optional[Union[StreamLabelsAmount, str]] = None
     monthly_donation_amount: Optional[Union[StreamLabelsAmount, str]] = None
     weekly_donation_amount: Optional[Union[StreamLabelsAmount, str]] = None
-    thirtyday_donation_amount: Optional[Union[StreamLabelsAmount, str]] = Field(default=None, alias="30day_donation_amount")
+    thirtyday_donation_amount: Optional[Union[StreamLabelsAmount, str]] = Field(
+        default=None, alias="30day_donation_amount"
+    )
     session_donation_amount: Optional[Union[StreamLabelsAmount, str]] = None
     all_time_top_donator: Optional[str] = ""
     monthly_top_donator: Optional[str] = ""
@@ -141,27 +164,37 @@ class StreamLabelsUnderlyingData(BaseModel):
     all_time_top_donators: Optional[Union[List[Any], str]] = None
     monthly_top_donators: Optional[Union[List[Any], str]] = ""
     weekly_top_donators: Optional[Union[List[Any], str]] = ""
-    thirtyday_top_donators: Optional[Union[List[Any], str]] = Field(default="", alias="30day_top_donators")
+    thirtyday_top_donators: Optional[Union[List[Any], str]] = Field(
+        default="", alias="30day_top_donators"
+    )
     session_top_donators: Optional[Union[List[Any], str]] = ""
     all_time_top_donations: Optional[Union[List[Any], str]] = None
     monthly_top_donations: Optional[Union[List[Any], str]] = None
     weekly_top_donations: Optional[Union[List[Any], str]] = None
-    thirtyday_top_donations: Optional[Union[List[Any], str]] = Field(default=None, alias="30day_top_donations")
+    thirtyday_top_donations: Optional[Union[List[Any], str]] = Field(
+        default=None, alias="30day_top_donations"
+    )
     session_top_donations: Optional[Union[List[Any], str]] = None
     all_time_top_monthly_donator: Optional[str] = ""
     monthly_top_monthly_donator: Optional[str] = ""
     weekly_top_monthly_donator: Optional[str] = ""
-    thirtyday_top_monthly_donator: Optional[str] = Field(default="", alias="30day_top_monthly_donator")
+    thirtyday_top_monthly_donator: Optional[str] = Field(
+        default="", alias="30day_top_monthly_donator"
+    )
     session_top_monthly_donator: Optional[str] = ""
     all_time_top_monthly_donators: Optional[Union[List[Any], str]] = None
     monthly_top_monthly_donators: Optional[Union[List[Any], str]] = ""
     weekly_top_monthly_donators: Optional[Union[List[Any], str]] = ""
-    thirtyday_top_monthly_donators: Optional[Union[List[Any], str]] = Field(default="", alias="30day_top_monthly_donators")
+    thirtyday_top_monthly_donators: Optional[Union[List[Any], str]] = Field(
+        default="", alias="30day_top_monthly_donators"
+    )
     session_top_monthly_donators: Optional[Union[List[Any], str]] = ""
     total_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = None
     monthly_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = None
     weekly_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = None
-    thirtyday_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = Field(default=None, alias="30day_monthly_donator_count")
+    thirtyday_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = Field(
+        default=None, alias="30day_monthly_donator_count"
+    )
     session_monthly_donator_count: Optional[Union[StreamLabelsCount, str]] = None
     most_recent_monthly_donator: Optional[str] = ""
     session_monthly_donators: Optional[str] = ""
@@ -170,12 +203,14 @@ class StreamLabelsUnderlyingData(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class StreamLabelsUnderlyingMessage(BaseModel):
     hash: Optional[str] = None
     data: StreamLabelsUnderlyingData
 
     class Config:
         populate_by_name = True
+
 
 class AlertPlayingMessage(BaseModel):
     id: Optional[str] = Field(default=None, alias="_id")
@@ -228,6 +263,7 @@ class AlertPlayingMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class TwitchFollowMessage(BaseModel):
     id: Optional[Union[str, int]] = Field(default=None, alias="_id")
     name: str
@@ -235,6 +271,7 @@ class TwitchFollowMessage(BaseModel):
 
     class Config:
         populate_by_name = True
+
 
 class TwitchSubscriptionMessage(BaseModel):
     id: Optional[Union[str, int]] = Field(default=None, alias="_id")
@@ -247,6 +284,7 @@ class TwitchSubscriptionMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class TwitchBitsMessage(BaseModel):
     id: Optional[Union[str, int]] = Field(default=None, alias="_id")
     name: str
@@ -258,6 +296,7 @@ class TwitchBitsMessage(BaseModel):
     class Config:
         populate_by_name = True
 
+
 class TwitchHostMessage(BaseModel):
     id: Optional[Union[str, int]] = Field(default=None, alias="_id")
     name: str
@@ -266,6 +305,7 @@ class TwitchHostMessage(BaseModel):
 
     class Config:
         populate_by_name = True
+
 
 class TwitchRaidMessage(BaseModel):
     id: Optional[Union[str, int]] = Field(default=None, alias="_id")

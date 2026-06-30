@@ -8,6 +8,7 @@ from ..streamlabs.events import (
     streamlabs_event_handler,
 )
 
+
 class Listener:
     def __init__(self, logger: Logger):
         self._logger = logger

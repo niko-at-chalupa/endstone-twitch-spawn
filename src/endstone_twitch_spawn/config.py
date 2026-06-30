@@ -6,9 +6,11 @@ from ruamel.yaml import YAML, CommentedMap
 import os
 from endstone import Logger
 
+
 class Config(BaseModel):
     streamlabs_socket_token: str = ""
     log_events: bool = False
+
 
 def load_config(plugin: Plugin) -> Config:
     folder = Path(plugin.data_folder)
@@ -21,9 +23,15 @@ def load_config(plugin: Plugin) -> Config:
     yml.preserve_quotes = False
 
     defaults: dict[str, tuple[Any, str]] = {
-        "streamlabs_socket_token": ("", "\"Your Socket API Token\" from https://streamlabs.com/dashboard#/settings/api-settings. You can also do this through environment variable (STREAMLABS_SOCKET_TOKEN), if perferred."),
+        "streamlabs_socket_token": (
+            "",
+            '"Your Socket API Token" from https://streamlabs.com/dashboard#/settings/api-settings. You can also do this through environment variable (STREAMLABS_SOCKET_TOKEN), if perferred.',
+        ),
         # "log_events" is less scary than "debug," people shouldn't be afraid of using this
-        "log_events": (False, "Log events by sending DEBUG messages. This will also set the log level to DEBUG, which may fill up the console with a lot of stuff. You can also do this through environment variable (DEBUG=1) if perferred."),
+        "log_events": (
+            False,
+            "Log events by sending DEBUG messages. This will also set the log level to DEBUG, which may fill up the console with a lot of stuff. You can also do this through environment variable (DEBUG=1) if perferred.",
+        ),
     }
 
     if cfg_path.exists():
@@ -71,6 +79,8 @@ def load_config(plugin: Plugin) -> Config:
         if debug_env != "":
             config_dict["log_events"] = False
     if debug_env != "":
-        logger.warning(f"log_events was overridden to `{config_dict['log_events']}` by environment variable")
+        logger.warning(
+            f"log_events was overridden to `{config_dict['log_events']}` by environment variable"
+        )
 
     return Config(**config_dict)

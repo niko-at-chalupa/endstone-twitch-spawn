@@ -2,6 +2,7 @@ from .config import Config, load_config
 from endstone.plugin import Plugin
 from .streamlabs import StreamlabsClient, StreamlabsEventHandler
 
+
 class TwitchSpawnPlugin(Plugin):
     api_version = "0.11"
     config = Config
@@ -19,7 +20,9 @@ class TwitchSpawnPlugin(Plugin):
             )
             self._client.start()
         else:
-            self.logger.error("No streamlabs_socket_token set through config! endstone-twitch-spawn will NOT be functional!")
+            self.logger.error(
+                "No streamlabs_socket_token set through config! endstone-twitch-spawn will NOT be functional!"
+            )
 
         if self.config.log_events:
             self.logger.set_level(self.logger.Level.DEBUG)

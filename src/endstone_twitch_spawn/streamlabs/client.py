@@ -4,8 +4,14 @@ import socketio
 
 STREAMLABS_SOCKET_URL = "https://sockets.streamlabs.com"
 
+
 class StreamlabsClient:
-    def __init__(self, logger: endstone.Logger, token: str, streamlabs_event_handler: StreamlabsEventHandler):
+    def __init__(
+        self,
+        logger: endstone.Logger,
+        token: str,
+        streamlabs_event_handler: StreamlabsEventHandler,
+    ):
         self._token = token
         self._logger = logger
         self._client = socketio.Client()
@@ -43,6 +49,7 @@ class StreamlabsClient:
             return
         try:
             from .events import parse_streamlabs_event
+
             event = parse_streamlabs_event(data)
             if event is not None:
                 self._streamlabs_event_handler.call_event(event)

@@ -19,10 +19,12 @@ from .models import (
     TwitchRaidMessage,
 )
 
+
 class StreamlabsEvent(ABC):
     @property
     def event_name(self) -> str:
         return self.__class__.__name__
+
 
 class StreamlabsBaseEvent(BaseModel, StreamlabsEvent):
     type: str
@@ -32,35 +34,46 @@ class StreamlabsBaseEvent(BaseModel, StreamlabsEvent):
     class Config:
         populate_by_name = True
 
+
 class LoyaltyStoreRedemptionEvent(StreamlabsBaseEvent):
     message: List[LoyaltyStoreRedemptionMessage]
+
 
 class MerchEvent(StreamlabsBaseEvent):
     message: List[MerchMessage]
 
+
 class DonationEvent(StreamlabsBaseEvent):
     message: List[DonationMessage]
+
 
 class StreamLabelsEvent(StreamlabsBaseEvent):
     message: StreamLabelsMessage
 
+
 class StreamLabelsUnderlyingEvent(StreamlabsBaseEvent):
     message: StreamLabelsUnderlyingMessage
+
 
 class AlertPlayingEvent(StreamlabsBaseEvent):
     message: AlertPlayingMessage
 
+
 class TwitchFollowEvent(StreamlabsBaseEvent):
     message: List[TwitchFollowMessage]
+
 
 class TwitchSubscriptionEvent(StreamlabsBaseEvent):
     message: List[TwitchSubscriptionMessage]
 
+
 class TwitchBitsEvent(StreamlabsBaseEvent):
     message: List[TwitchBitsMessage]
 
+
 class TwitchHostEvent(StreamlabsBaseEvent):
     message: List[TwitchHostMessage]
+
 
 class TwitchRaidEvent(StreamlabsBaseEvent):
     message: List[TwitchRaidMessage]
@@ -93,7 +106,10 @@ def parse_streamlabs_event(data: dict) -> Optional[StreamlabsEvent]:
     else:
         return None
 
-def streamlabs_event_handler(func=None, *, priority: EventPriority = EventPriority.NORMAL):
+
+def streamlabs_event_handler(
+    func=None, *, priority: EventPriority = EventPriority.NORMAL
+):
     """
     Decorator to register an event handler.
 
@@ -106,6 +122,7 @@ def streamlabs_event_handler(func=None, *, priority: EventPriority = EventPriori
         ...
     ```
     """
+
     def decorator(f):
         setattr(f, "_is_streamlabs_event_handler", True)
         setattr(f, "_streamlabs_priority", priority)
@@ -116,6 +133,7 @@ def streamlabs_event_handler(func=None, *, priority: EventPriority = EventPriori
 
     return decorator
 
+
 class StreamlabsEventHandler:
     def __init__(self, logger: Logger):
         self._logger = logger
@@ -124,7 +142,9 @@ class StreamlabsEventHandler:
     def register_events(self, listener: Any):
         for attr_name in dir(listener):
             attr = getattr(listener, attr_name)
-            if not callable(attr) or not getattr(attr, "_is_streamlabs_event_handler", False):
+            if not callable(attr) or not getattr(
+                attr, "_is_streamlabs_event_handler", False
+            ):
                 continue
 
             hints = get_type_hints(attr)
@@ -132,15 +152,21 @@ class StreamlabsEventHandler:
 
             event_type = next(iter(hints.values()), None)
 
-            if not inspect.isclass(event_type) or not issubclass(event_type, StreamlabsEvent):
-                self._logger.error(f"Failed to register streamlabs event handler {attr_name}: No StreamlabsEvent type hint found.")
+            if not inspect.isclass(event_type) or not issubclass(
+                event_type, StreamlabsEvent
+            ):
+                self._logger.error(
+                    f"Failed to register streamlabs event handler {attr_name}: No StreamlabsEvent type hint found."
+                )
                 continue
 
             if event_type not in self._handlers:
                 self._handlers[event_type] = []
 
             self._handlers[event_type].append(attr)
-            self._handlers[event_type].sort(key=lambda x: getattr(x, "_streamlabs_priority").value)
+            self._handlers[event_type].sort(
+                key=lambda x: getattr(x, "_streamlabs_priority").value
+            )
 
     def call_event(self, event: StreamlabsEvent) -> None:
         for registered_type, handlers in self._handlers.items():
@@ -151,5 +177,7 @@ class StreamlabsEventHandler:
                         handler(event)
                     except Exception as e:
                         handler_name = getattr(handler, "__name__", str(handler))
-                        self._logger.error(f"Error while calling streamlabs event handler {handler_name}: {e}")
+                        self._logger.error(
+                            f"Error while calling streamlabs event handler {handler_name}: {e}"
+                        )
                         self._logger.error(traceback.format_exc())

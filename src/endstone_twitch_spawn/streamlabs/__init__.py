@@ -14,7 +14,7 @@ from .events import (
     TwitchBitsEvent,
     TwitchHostEvent,
     TwitchRaidEvent,
-    parse_streamlabs_event
+    parse_streamlabs_event,
 )
 
 __all__ = [
