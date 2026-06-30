@@ -13,6 +13,7 @@ dependencies = [
     "endstone",
     "python-socketio",
     "pydantic",
+    "ruamel.yaml",
 ]
 
 [project.entry-points."endstone"]
