@@ -1,5 +1,5 @@
 import endstone
-from .events import StreamlabsEventHandler, StreamlabsEvent
+from .events import StreamlabsEventHandler
 import socketio
 
 STREAMLABS_SOCKET_URL = "https://sockets.streamlabs.com"

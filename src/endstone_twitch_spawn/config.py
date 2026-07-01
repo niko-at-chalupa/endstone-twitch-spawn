@@ -4,7 +4,6 @@ from endstone.plugin import Plugin
 from pydantic import BaseModel
 from ruamel.yaml import YAML, CommentedMap
 import os
-from endstone import Logger
 
 
 class Config(BaseModel):
